@@ -5,6 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -36,11 +38,46 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter ad1 = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, to);
         sp2.setAdapter(ad1);
 
+        sp1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                //check if spinner2 has a selected item and show the value in edittext
+                convert();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                // sometimes you need nothing here
+
+            }
+        });
+        sp2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                //check if spinner2 has a selected item and show the value in edittext
+                convert();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                // sometimes you need nothing here
+
+            }
+        });
+
+
+
 
         ed1.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                convert();
             }
 
             @Override
@@ -373,6 +410,13 @@ ACRE CONVERSION
             //6.Acre to Hectare
             else if (sp1.getSelectedItem().toString() == "Acre" && sp2.getSelectedItem().toString() == "Hectare") {
                 tot = amt/2.47105;
+                //Toast.makeText(getApplicationContext(), tot.toString(), Toast.LENGTH_LONG).show();
+                answer.setText("" + tot);
+
+            }
+            else if (sp1.getSelectedItem().toString() ==  sp2.getSelectedItem().toString()) {
+                tot = amt;
+                //if both spinner are same (Note):-
                 //Toast.makeText(getApplicationContext(), tot.toString(), Toast.LENGTH_LONG).show();
                 answer.setText("" + tot);
 
